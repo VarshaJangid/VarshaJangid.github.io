@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -21,15 +21,20 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - name: Build
+        run: echo "No build needed"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages   # ✅ THIS FIXES YOUR ERROR
 
     steps:
       - name: Deploy
